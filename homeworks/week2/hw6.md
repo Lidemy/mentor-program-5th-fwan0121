@@ -12,7 +12,7 @@ function isValid(arr) {
 isValid([3, 5, 8, 13, 22, 35])
 ```
 
-怕行數顯示出來，所以附個有行數的圖
+怕行數顯示不出來，所以附個有行數的圖
 
 <img src="https://i.imgur.com/XJwXvtu.jpg">
 
