@@ -99,6 +99,8 @@ HTML 的每個元素都可以被視為是一個盒子，所有網頁上的物件
 
 - 例如`<a>`、`<span>`、`<em>`、`<strong>`、`<b>`等等。
 
+>img 是一種置換元素 (Replaced element)，瀏覽器根據元素的標簽和屬性，來決定元素的具體顯示內容。。他的 display 属性的默认值是 inline，但是有別於一般的 inline 元素，他本身是擁有寬度、高度、寬高比，所以可以顯現的像是 inline-block 一樣。`<img>` 可以 border/border-radius、padding/margin、width、height 等等的 CSS 屬性。
+
 
 ### `block`
 
@@ -118,7 +120,7 @@ HTML 的每個元素都可以被視為是一個盒子，所有網頁上的物件
 
 - 可以設定垂直對齊（vertical-align）屬性，指定垂直對齊的方式。
 
-- 例如 `<img>`、`<input>`、`<select>`、`<button>`等等。
+- 例如 `<input>`、`<select>`、`<button>`等等。
 
 # 請問 position: static, relative, absolute 跟 fixed 的差別是什麼？
 
