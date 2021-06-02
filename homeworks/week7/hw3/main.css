@@ -38,6 +38,7 @@ body {
     color: #189BA3;
     font-size: 20px;
     border-radius: .25rem;
+    line-height: 20px;
 }
 
 .list-input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
@@ -55,7 +56,7 @@ body {
     
 }
 
-.btn-add {
+.btn, .btn-add {
     color: #fff;
     background-color: #da7f8f;
     border-color: #da7f8f;
@@ -102,6 +103,13 @@ body {
 .list-item:hover {
     border-radius: 5px;
     background: rgb(218,127,143,0.4);
+}
+
+.list-item span {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow:hidden;
+    padding: 5px;
 }
 
 .list-check {
@@ -156,6 +164,11 @@ input[type=checkbox]:checked:after {
 
 .btn-delete:hover {
     color: #D24660;
+}
+
+.btn-del-all {
+    background-color: #189BA3;
+    border-color: #189BA3;
 }
 
 

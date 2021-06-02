@@ -40,8 +40,22 @@
             </label>
         </ul>
     </div>
+    <div class="fixed-section">
+        <button class="btn-del-all btn">Delete All</button>
+    </div>
 </div>
 <script>
+    const todoList = document.querySelector('.list-items')
+    document.querySelector('.btn-del-all').addEventListener('click', 
+    function() {
+        let item = document.querySelector(".list-check");
+        if (!todoList.contains(item)) {
+            return alert('cannot delete anymore')
+        }
+        while (todoList.firstChild) {
+            todoList.removeChild(todoList.firstChild)
+        }
+    });
     document.querySelector('.btn-add').addEventListener('click',
         function() {
             const val = document.querySelector('.list-input').value
@@ -60,11 +74,11 @@
                     </button>
                 </li>
                 `
-            document.querySelector('.list-items').appendChild(list)
+                todoList.appendChild(list)
         }
     )
     
-    document.querySelector('.list-items').addEventListener('click', 
+    todoList.addEventListener('click', 
         function(e) {
             if (e.target.classList.contains('fa-trash-alt')) {
                 e.target.closest('.list-check').remove();
@@ -73,7 +87,7 @@
             if (e.target.closest('.list-check').querySelector('.list-item-detail').checked) {
                 e.target.closest('.list-check').classList.add('list-finish')
             } else {
-                e.target.closest('.list-check').classList.remove('list-finish')
+                e.target.closest('.list-check').classList.toggle('list-finish')
             }
 
         }
