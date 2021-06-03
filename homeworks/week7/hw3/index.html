@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/latest/normalize.css">
+    <script src="https://kit.fontawesome.com/695339d482.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="main.css">
+    <title>Document</title>
+</head>
+<body>
+<div class="list">
+    <div class="list-header">
+        <h1>Todo List</h1>
+        <div class="list-block">
+            <input class="list-input" type="text" placeholder="Add New Todo">
+            <buttton class="btn-add">Add Item</buttton>
+        </div>
+    </div>
+    <div class="list-section">
+        <ul class="list-items">
+            <label class="list-check">
+                <li class="list-item">
+                    <input class="list-item-detail" type="checkbox">
+                    <span>binge-watching</span>     
+                    <button class="btn-delete">
+                        <i class="far fa-trash-alt"></i>
+                    </button>
+                </li>
+            </label>
+            <label class="list-check">
+                <li class="list-item">
+                    <input class="list-item-detail" type="checkbox">
+                    <span>reading books</span>
+                    <button class="btn-delete">
+                        <i class="far fa-trash-alt"></i>
+                    </button>
+                </li>
+            </label>
+        </ul>
+    </div>
+    <div class="fixed-section">
+        <button class="btn-del-all btn">Delete All</button>
+    </div>
+</div>
+<script>
+    const todoList = document.querySelector('.list-items')
+    document.querySelector('.btn-del-all').addEventListener('click', 
+    function() {
+        let item = document.querySelector(".list-check");
+        if (!todoList.contains(item)) {
+            return alert('cannot delete anymore')
+        }
+        while (todoList.firstChild) {
+            todoList.removeChild(todoList.firstChild)
+        }
+    });
+    document.querySelector('.btn-add').addEventListener('click',
+        function() {
+            const val = document.querySelector('.list-input').value
+            if (!val.trim()) {
+                return alert('please type something!')
+            }
+            const list = document.createElement('label')
+            list.classList.add('list-check')
+            list.innerHTML =
+                `
+                <li class="list-item">
+                    <input class="list-item-detail" type="checkbox">
+                    <span>${escapeHtml(val)}</span>     
+                    <button class="btn-delete">
+                        <i class="far fa-trash-alt"></i>
+                    </button>
+                </li>
+                `
+                todoList.appendChild(list)
+        }
+    )
+    
+    todoList.addEventListener('click', 
+        function(e) {
+            if (e.target.classList.contains('fa-trash-alt')) {
+                e.target.closest('.list-check').remove();
+                return
+            }
+            if (e.target.closest('.list-check').querySelector('.list-item-detail').checked) {
+                e.target.closest('.list-check').classList.add('list-finish')
+            } else {
+                e.target.closest('.list-check').classList.toggle('list-finish')
+            }
+
+        }
+    )
+
+    function escapeHtml(unsafe) {
+        return unsafe
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+    }
+</script>
+</body>
+</html>
