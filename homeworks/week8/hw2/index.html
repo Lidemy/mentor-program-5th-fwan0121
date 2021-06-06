@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="main.css">
+    <link href='https://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet'>
+
+    <title>Document</title>
+</head>
+<body>
+    <nav class="navbar">
+        <h1>Twitch Top Games</h1>
+    </nav>
+    <div class="wrap">
+        <h1 class="title"></h1>
+        <h2>Top 20 popular live streams sorted by current viewers</h2>
+        <section class="streams">
+        </section>
+        <button class="btn-more">loading more...</button>
+    </div>
+
+    <script>
+        var url = 'https://api.twitch.tv/kraken'
+        var offset = 0
+        var template = 
+                    `
+                    <div class="stream">
+                        <img src="$preview" alt="">
+                        <div class="streamer-data">
+                            <div class="streamer-avatar">
+                                <img src="$logo" alt="">
+                            </div>
+                            <div class="streamer-info">
+                                <p class="streamer-title">
+                                    $title
+                                </p>
+                                <p class="streamer-channel">
+                                    $channel
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    `
+        function getTopGames(callback) {
+            const request = new XMLHttpRequest()
+            request.open('GET', url + '/games/top?limit=5', true)
+            request.setRequestHeader('Accept', 'application/vnd.twitchtv.v5+json')
+            request.setRequestHeader('Client-ID', '22oz51wyck39x2mxtu7m8k5s3yzhzz')
+            request.onload = function () {
+                if (request.status >= 200 && request.status < 400) {
+                    let topGames
+                    try {
+                        topGames = JSON.parse(request.response)
+                        callback(topGames)
+                    } catch(err) {
+                        return err
+                    }
+                }
+            }
+            request.send()
+        }
+
+        function getStreams(name, offset, callback) {
+            const request = new XMLHttpRequest()
+            request.open('GET', url + '/streams?game=' + encodeURIComponent(name) + '&limit=20' + '&offset=' + offset , true)
+            request.setRequestHeader('Accept', 'application/vnd.twitchtv.v5+json')
+            request.setRequestHeader('Client-ID', '22oz51wyck39x2mxtu7m8k5s3yzhzz')
+            request.onload = function () {
+                if (request.status >= 200 && request.status < 400) {
+                    let stream
+                    try {
+                        stream = JSON.parse(request.response)
+                        callback(stream)
+                    } catch(err) {
+                        return err
+                    }
+                }
+            }
+            request.send()
+        }
+
+        getTopGames(function(games){
+            var topGames = games.top.map(game => game.game.name)
+            for (let i = 0; i < topGames.length; i++) {
+                let gameList = document.createElement('a')
+                gameList.innerHTML = topGames[i]
+                document.querySelector('.navbar').appendChild(gameList)
+                document.querySelector('.title').innerText = topGames[0]
+            }
+            getStreams(topGames[0], 0, (data) => {
+                appendStreams(data.streams)
+                addPlaceholder()
+            })
+        })
+        
+        function addPlaceholder() {
+            const placeholder = document.createElement('div')
+            placeholder.classList.add('stream-empty')
+            document.querySelector('.streams').appendChild(placeholder)
+        }
+
+        function deleteEmpty() {
+            document.querySelectorAll(".stream-empty").forEach(e => e.remove());
+        }
+
+        function appendStreams(streams) {
+            for (let streamer of streams) {
+                let element = document.createElement('div')
+                let content = template
+                    .replace('$preview', streamer.preview.large)
+                    .replace('$logo', streamer.channel.logo)
+                    .replace('$title', streamer.channel.status)
+                    .replace('$channel', streamer.channel.name)
+                    document.querySelector('.streams').appendChild(element)
+                    element.outerHTML = content
+            }
+        }
+
+        document.querySelector('.navbar').addEventListener('click', 
+            function (e){
+                if (e.target.tagName === 'A') {
+                    let gameName = e.target.innerText
+                    document.querySelector('.title').innerText = gameName
+                    document.querySelector('.streams').innerHTML = '';
+                    getStreams(gameName, 0 ,(data) => {
+                        appendStreams(data.streams)
+                        addPlaceholder()
+                    })
+                }
+        })
+
+        document.querySelector('.btn-more').addEventListener('click',
+            function(){
+                offset += 20
+                let gameName = document.querySelector('.title').innerText
+                getStreams(gameName, offset ,(data) => {
+                    appendStreams(data.streams)
+                    deleteEmpty()
+                    addPlaceholder()
+                    addPlaceholder()
+                })
+            }
+        )
+
+
+    </script>
+</body>
+</html>

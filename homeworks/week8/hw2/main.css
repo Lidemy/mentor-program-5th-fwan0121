@@ -1,0 +1,287 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+/* reset */
+* {
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: 'DungGeunMo';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: "M PLUS 1p","DungGeunMo", "Press Start 2P" ,"Segoe UI","微軟正黑體",sans-serif;
+    /* background-color: #8d697a; */
+    background-color: #be6353;
+}
+
+.navbar {
+    position: fixed;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    border-bottom: 2px solid black;
+    box-shadow: 2px 2px 7px black;
+    background-color: #ffecd6;
+    line-height: 24px;
+    z-index: 2;
+}
+
+.navbar, .wrap h1, .wrap h2, .btn-more {
+    font-family: "Press Start 2P";
+}
+
+.navbar h1{
+    padding: 10px;
+    flex-grow: 4;
+    font-size: 18px;
+    font-weight: 500;
+    color: #d08159;
+}
+
+.navbar a{
+    padding: 10px;
+    flex-grow: 1;
+    font-size: 12px;
+    font-weight: 500;
+    text-decoration: none;
+    color: #882211;
+    text-align: center;
+    border: 4px solid transparent;
+    position: relative;
+}
+
+.navbar a:hover{
+    text-decoration: underline 3px dotted #203c56;
+    color: #203c56;
+    box-shadow: inset -4px -4px 0px 0px #d08159;
+}
+
+.navbar a:hover::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: -3px;
+    left: 0;
+    border-top: 3px solid black;
+    border-bottom: 3px solid black;
+}
+
+.navbar a:hover::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: -3px;
+    top: 0;
+    border-left: 3px black solid;
+    border-right: 3px black solid;
+}
+
+.wrap {
+    max-width: 1440px;
+    padding: 120px 0;
+    text-align: center;
+    position: relative;
+    min-height: 100vh;
+    line-height: 2rem;
+    margin: 0 auto;
+    color: #ffaa5e;
+}
+
+.wrap h1 {
+    font-size: 15px;
+}
+
+.wrap h2 {
+    font-size: 12px;
+}
+
+.streams {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.stream-empty {
+    width: 400px;
+    margin: 15px;
+}
+
+.stream {
+    position: relative;
+    width: 400px;
+    background-color: #ffecd6;
+    margin: 15px;
+    box-shadow: inset -4px -4px 0px 0px #e59400;
+    padding: 0 4px 4px 0;
+}
+
+.stream:hover {
+    background-color: #ffd4a3;
+    box-shadow: inset -6px -6px 0px 0px #e59400;
+    padding: 0 5px 5px 0;
+}
+
+.stream:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: -5px;
+    left: 0;
+    border-top: 5px solid rgb(41, 35, 35);
+    border-bottom: 5px solid rgb(41, 35, 35);
+}
+
+.stream:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: -5px;
+    top: 0;
+    border-left: 5px solid rgb(41, 35, 35);
+    border-right: 5px solid rgb(41, 35, 35);
+}
+
+.stream img {
+    width: 100%;
+}
+
+.streamer-data {
+    display: flex;
+    align-items: center;
+    color: #544e68;
+    font-weight: bold;
+}
+
+
+.streamer-avatar img {
+    width: 60px;
+    border-radius: 50%;
+    margin: 10px;
+}
+
+.streamer-info {
+    min-width: 0;
+    margin-right: 10px;
+    text-align: left;
+    color: #882211;
+}
+
+.streamer-info p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.streamer-title {
+    font-size: 18px;
+}
+
+.btn-more {
+    line-height: 20px;
+    position: relative;
+    width: 300px;
+    background-color: #ffecd6;
+    margin: 25px;
+    padding: 10px 0;
+    box-shadow: inset -4px -4px 0px 0px #e59400;
+    padding: 0 4px 4px 0;
+}
+
+.btn-more:hover {
+    background-color: #ffd4a3;
+    box-shadow: inset -5px -5px 0px 0px #e59400;
+}
+
+.btn-more::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: -5px;
+    left: 0;
+    border-top: 5px solid rgb(41, 35, 35);
+    border-bottom: 5px solid rgb(41, 35, 35);
+}
+
+.btn-more::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: -5px;
+    top: 0;
+    border-left: 5px solid rgb(41, 35, 35);
+    border-right: 5px solid rgb(41, 35, 35);
+}
+
+@media(max-width: 845px) {
+    .navbar {
+        flex-direction: column;
+        text-align: center;
+    }
+    .wrap {
+        padding: 350px 0;
+        
+    }
+
+    .stream {
+        width: 80%;
+    }
+
+}
